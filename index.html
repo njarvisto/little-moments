@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Little Moments — trusted babysitting, face painting and party assist in your local area. CPR and First Aid certified. Book online, 7 days a week." />
+<title>Little Moments — Babysitting, Face Painting & Party Assist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  /* ---------- Design tokens (matched to current site) ---------- */
+  :root{
+    --teal:         #196470;   /* primary brand — deep teal from existing site */
+    --teal-dark:    #114A54;
+    --teal-soft:    #D4E7EB;
+    --yellow:       #ECCD7B;   /* mustard accent from existing site */
+    --yellow-soft:  #FAF1DA;
+    --sky:          #B7DFEC;   /* light sky blue from logo banner */
+    --sky-soft:     #E4F2F8;
+    --pink:         #EC6FA1;   /* logo pink accent */
+    --cream:        #FFFFFF;   /* page background — kept white like current site */
+    --cream-deep:   #F7F4EC;
+    --coral:        #196470;   /* alias for backwards-compat in CSS below */
+    --coral-dark:   #114A54;
+    --coral-soft:   #D4E7EB;
+    --gold:         #ECCD7B;
+    --sage:         #B7DFEC;
+    --ink:          #1A1A1A;   /* primary text — near-black like current site */
+    --ink-soft:     #4A4A4A;
+    --line:         #E5E5E5;
+    --white:        #FFFFFF;
+    --shadow-sm:    0 1px 2px rgba(42,37,34,.06), 0 2px 6px rgba(42,37,34,.05);
+    --shadow-md:    0 6px 24px rgba(42,37,34,.08);
+    --shadow-lg:    0 18px 50px rgba(42,37,34,.12);
+    --radius:       18px;
+    --radius-lg:    28px;
+    --max:          1180px;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Open Sans','Montserrat',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+    background:var(--cream);
+    color:var(--ink);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%;display:block}
+  a{color:var(--teal);text-decoration:none}
+  a:hover{text-decoration:underline}
+
+  h1,h2,h3,h4{font-family:'Caveat',cursive;color:var(--ink);line-height:1.1;font-weight:600;letter-spacing:0}
+  h1{font-size:clamp(3rem,6.5vw,5.5rem);font-weight:700}
+  h2{font-size:clamp(2.5rem,4.5vw,3.6rem);font-weight:700}
+  h3{font-family:'Montserrat',sans-serif;font-size:1.25rem;font-weight:700;letter-spacing:-.01em}
+  h4{font-family:'Montserrat',sans-serif}
+
+  .container{max-width:var(--max);margin:0 auto;padding:0 24px}
+  .eyebrow{
+    display:inline-block;
+    font-family:'Montserrat',sans-serif;
+    font-size:.78rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--teal-dark);
+    background:var(--teal-soft);
+    padding:6px 14px;border-radius:999px;margin-bottom:18px;
+  }
+
+  /* ---------- Buttons ---------- */
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:14px 26px;border-radius:999px;
+    font-family:'Montserrat',sans-serif;
+    font-weight:600;font-size:1rem;
+    transition:transform .15s ease, box-shadow .2s ease, background .2s ease;
+    border:0;cursor:pointer;
+    text-decoration:none;
+  }
+  .btn-primary{background:var(--teal);color:#fff;box-shadow:var(--shadow-md)}
+  .btn-primary:hover{background:var(--teal-dark);transform:translateY(-2px);text-decoration:none}
+  .btn-yellow{background:var(--yellow);color:var(--ink);box-shadow:var(--shadow-md)}
+  .btn-yellow:hover{background:#E6C46B;transform:translateY(-2px);text-decoration:none}
+  .btn-ghost{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
+  .btn-ghost:hover{background:var(--ink);color:#fff;text-decoration:none}
+  .btn-light{background:#fff;color:var(--ink);box-shadow:var(--shadow-sm)}
+  .btn-light:hover{box-shadow:var(--shadow-md);transform:translateY(-2px);text-decoration:none}
+
+  /* ---------- Nav ---------- */
+  .nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(255,255,255,.92);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    display:flex;align-items:center;justify-content:space-between;
+    height:96px;
+  }
+  .brand{
+    display:flex;align-items:center;gap:14px;
+    font-family:'Caveat',cursive;font-weight:700;font-size:2rem;color:var(--ink);line-height:1;
+  }
+  .brand-logo{
+    width:72px;height:72px;border-radius:14px;
+    object-fit:cover;
+    background:var(--sky);
+    display:block;
+  }
+  .nav-inner{height:96px}
+  .foot-brand .brand-logo{width:64px;height:64px;border-radius:12px}
+  .nav-links{display:flex;gap:28px;list-style:none}
+  .nav-links a{color:var(--ink);font-weight:500;font-size:.95rem}
+  .nav-links a:hover{color:var(--coral-dark);text-decoration:none}
+  .nav-cta{display:flex;gap:10px;align-items:center}
+  .nav .btn{padding:10px 20px;font-size:.92rem}
+
+  @media (max-width:880px){
+    .nav-links{display:none}
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative;
+    padding:80px 0 60px;
+    overflow:hidden;
+  }
+  .hero-grid{
+    display:grid;grid-template-columns:1.05fr .95fr;gap:64px;align-items:center;
+  }
+  .hero h1 .accent{
+    color:var(--teal);
+    font-weight:700;
+  }
+  .hero p.lead{
+    font-size:1.15rem;color:var(--ink-soft);
+    margin:22px 0 32px;max-width:520px;
+  }
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap}
+  .hero-trust{
+    display:flex;gap:22px;align-items:center;margin-top:40px;flex-wrap:wrap;
+    font-size:.9rem;color:var(--ink-soft);
+  }
+  .hero-trust .stars{color:var(--gold);letter-spacing:1px;font-size:1rem}
+  .hero-trust strong{color:var(--ink)}
+
+  /* Hero illustration card stack */
+  .hero-art{
+    position:relative;height:520px;
+  }
+  .art-card{
+    position:absolute;border-radius:var(--radius-lg);
+    box-shadow:var(--shadow-lg);
+    overflow:hidden;
+    background:var(--cream-deep);
+  }
+  .art-card.main{
+    inset:30px 30px 30px 60px;
+    background:linear-gradient(160deg,var(--sky) 0%,var(--teal-soft) 60%,var(--yellow) 140%);
+    display:flex;align-items:center;justify-content:center;
+    overflow:hidden;
+  }
+  .art-card.main img{
+    width:100%;height:100%;object-fit:cover;display:block;
+  }
+  .art-card.main .emoji{font-size:9rem;filter:drop-shadow(0 8px 24px rgba(25,100,112,.35))}
+  .art-card.float-1{
+    top:0;right:0;width:180px;padding:18px 18px 16px;background:#fff;
+    transform:rotate(4deg);
+  }
+  .art-card.float-2{
+    bottom:10px;left:0;width:220px;padding:18px;background:#fff;
+    transform:rotate(-3deg);
+  }
+  .art-card.float-3{
+    top:50%;right:-10px;width:160px;padding:14px 16px;background:var(--yellow);
+    transform:rotate(6deg);color:var(--ink);
+  }
+  .mini-stars{color:#E8B83A;font-size:.85rem;letter-spacing:1px;margin-bottom:6px}
+  .mini-quote{font-size:.82rem;line-height:1.45;color:var(--ink)}
+  .mini-author{font-size:.72rem;color:var(--ink-soft);margin-top:6px;font-weight:600}
+
+  @media (max-width:880px){
+    .hero{padding:48px 0 40px}
+    .hero-grid{grid-template-columns:1fr;gap:32px}
+    .hero-art{height:340px}
+    .art-card.main{inset:20px 20px 20px 30px}
+    .art-card.main .emoji{font-size:6rem}
+  }
+
+  /* ---------- Trust bar ---------- */
+  .trustbar{
+    background:var(--teal);color:#fff;padding:22px 0;
+    margin-top:0;
+  }
+  .trustbar-inner{
+    display:flex;justify-content:space-around;flex-wrap:wrap;gap:20px;
+    font-size:.95rem;font-weight:500;
+  }
+  .trustbar span{display:inline-flex;align-items:center;gap:8px}
+  .trustbar .emoji{font-size:1.1rem}
+
+  /* ---------- Section base ---------- */
+  section{padding:90px 0}
+  .section-head{text-align:center;margin-bottom:56px;max-width:680px;margin-left:auto;margin-right:auto}
+  .section-head p{color:var(--ink-soft);font-size:1.05rem;margin-top:14px}
+
+  /* ---------- Services ---------- */
+  .services{background:var(--cream)}
+  .service-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:24px;
+  }
+  .service-card{
+    background:#fff;border-radius:var(--radius-lg);
+    padding:36px 30px 32px;
+    border:1px solid var(--line);
+    transition:transform .25s ease, box-shadow .25s ease;
+    display:flex;flex-direction:column;
+    position:relative;overflow:hidden;
+  }
+  .service-photo{
+    margin:-36px -30px 22px;height:180px;overflow:hidden;
+    border-bottom:5px solid transparent;
+  }
+  .service-photo img{width:100%;height:100%;object-fit:cover;display:block}
+  .service-card.has-photo::before{display:none}
+  .service-card.has-photo .service-icon{display:none}
+  .service-card::before{
+    content:"";position:absolute;top:0;left:0;right:0;height:5px;
+    background:linear-gradient(90deg,var(--teal),var(--yellow));
+  }
+  .service-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg)}
+  .service-icon{
+    width:64px;height:64px;border-radius:18px;
+    background:var(--sky);display:grid;place-items:center;
+    font-size:2rem;margin-bottom:20px;
+  }
+  .service-card:nth-child(2) .service-icon{background:var(--yellow-soft)}
+  .service-card:nth-child(3) .service-icon{background:var(--teal-soft)}
+  .service-card h3{margin-bottom:10px}
+  .service-card p{color:var(--ink-soft);font-size:.97rem;margin-bottom:18px;flex:1}
+  .service-price{
+    font-family:'Caveat',cursive;font-size:2.4rem;font-weight:700;
+    color:var(--teal);margin-bottom:6px;line-height:1;
+  }
+  .service-price small{font-size:.85rem;color:var(--ink-soft);font-weight:400;font-family:'Open Sans',sans-serif}
+  .service-meta{font-size:.85rem;color:var(--ink-soft);margin-bottom:22px}
+  .service-card .btn{align-self:flex-start;padding:11px 22px;font-size:.92rem}
+
+  .service-extras{
+    margin-top:36px;display:flex;gap:18px;flex-wrap:wrap;justify-content:center;
+    color:var(--ink-soft);font-size:.95rem;
+  }
+  .service-extras .pill{
+    background:#fff;border:1px solid var(--line);padding:10px 18px;border-radius:999px;
+    display:inline-flex;align-items:center;gap:8px;
+  }
+
+  @media (max-width:880px){
+    .service-grid{grid-template-columns:1fr}
+  }
+
+  /* ---------- About ---------- */
+  .about{background:var(--sky)}
+  .about-grid{
+    display:grid;grid-template-columns:1fr 1.3fr;gap:60px;align-items:center;
+  }
+  .about-photo{
+    aspect-ratio:4/5;border-radius:var(--radius-lg);
+    box-shadow:var(--shadow-lg);
+    position:relative;overflow:hidden;
+  }
+  .about-photo img{width:100%;height:100%;object-fit:cover;display:block}
+  .about-photo::after{
+    content:"Sienna";position:absolute;bottom:0;left:0;right:0;text-align:center;
+    font-family:'Caveat',cursive;font-size:1.7rem;color:var(--teal);background:rgba(255,255,255,.92);
+    padding:6px 0 8px;backdrop-filter:blur(6px);font-weight:700;
+  }
+  .about p{color:var(--ink-soft);font-size:1.05rem;margin-bottom:18px}
+  .about .badges{
+    display:flex;gap:12px;flex-wrap:wrap;margin-top:24px;
+  }
+  .badge{
+    display:inline-flex;align-items:center;gap:8px;
+    background:#fff;border:1px solid var(--line);padding:10px 16px;border-radius:14px;
+    font-size:.9rem;font-weight:500;
+  }
+  .badge .dot{width:8px;height:8px;border-radius:50%;background:var(--teal)}
+
+  @media (max-width:880px){
+    .about-grid{grid-template-columns:1fr;gap:36px}
+    .about-photo{max-width:320px;margin:0 auto}
+  }
+
+  /* ---------- Recent Work ---------- */
+  .recent{background:var(--cream-deep)}
+  .recent-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:18px;
+  }
+  .recent-card{
+    border-radius:var(--radius-lg);overflow:hidden;
+    box-shadow:var(--shadow-md);
+    aspect-ratio:4/3;
+    position:relative;
+    transition:transform .25s ease, box-shadow .25s ease;
+  }
+  .recent-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+  .recent-card img{width:100%;height:100%;object-fit:cover;display:block}
+  .recent-card .caption{
+    position:absolute;left:0;right:0;bottom:0;
+    padding:14px 18px;
+    background:linear-gradient(to top,rgba(25,100,112,.85),transparent);
+    color:#fff;font-family:'Caveat',cursive;font-size:1.3rem;font-weight:600;
+  }
+  @media (max-width:880px){.recent-grid{grid-template-columns:1fr}}
+
+  /* ---------- Reviews ---------- */
+  .reviews{background:var(--cream)}
+  .review-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:22px;
+  }
+  .review-card{
+    background:#fff;border-radius:var(--radius);padding:26px 26px 24px;
+    border:1px solid var(--line);
+    display:flex;flex-direction:column;
+  }
+  .review-card .stars{color:#E8B83A;font-size:.95rem;letter-spacing:1.5px;margin-bottom:14px}
+  .review-card blockquote{
+    font-size:.97rem;line-height:1.6;color:var(--ink);font-style:italic;
+    margin-bottom:18px;flex:1;
+  }
+  .review-meta{
+    display:flex;align-items:center;gap:12px;
+    padding-top:14px;border-top:1px solid var(--line);
+  }
+  .avatar{
+    width:38px;height:38px;border-radius:50%;
+    background:linear-gradient(135deg,var(--teal),var(--sky));
+    color:#fff;display:grid;place-items:center;font-weight:700;
+  }
+  .review-name{font-weight:600;font-size:.92rem}
+  .review-tag{font-size:.78rem;color:var(--ink-soft)}
+
+  @media (max-width:880px){
+    .review-grid{grid-template-columns:1fr}
+  }
+
+  /* ---------- Process ---------- */
+  .process{background:var(--teal);color:#fff}
+  .process h2{color:#fff}
+  .process .section-head p{color:#D4E7EB}
+  .step-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:24px;
+  }
+  .step{
+    background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);
+    padding:32px 28px;border-radius:var(--radius-lg);
+    position:relative;
+  }
+  .step-num{
+    width:54px;height:54px;border-radius:50%;
+    background:var(--yellow);color:var(--ink);display:grid;place-items:center;
+    font-family:'Caveat',cursive;font-size:2rem;font-weight:700;
+    margin-bottom:18px;
+  }
+  .step h3{color:#fff;margin-bottom:8px}
+  .step p{color:#D4E7EB;font-size:.95rem}
+  @media (max-width:880px){.step-grid{grid-template-columns:1fr}}
+
+  /* ---------- Booking CTA ---------- */
+  .booking{background:var(--yellow);position:relative;overflow:hidden}
+  .booking::before{
+    content:"";position:absolute;top:-80px;right:-80px;width:280px;height:280px;
+    background:var(--sky);border-radius:50%;opacity:.6;
+  }
+  .booking::after{
+    content:"";position:absolute;bottom:-100px;left:-60px;width:240px;height:240px;
+    background:var(--teal);border-radius:50%;opacity:.18;
+  }
+  .booking-inner{position:relative;z-index:1}
+  .booking-grid{
+    display:grid;grid-template-columns:1fr 1.1fr;gap:50px;align-items:center;
+  }
+  .booking h2{margin-bottom:14px}
+  .booking p{color:var(--ink-soft);font-size:1.05rem;margin-bottom:20px}
+  .booking-list{list-style:none;display:flex;flex-direction:column;gap:10px;margin-bottom:30px}
+  .booking-list li{display:flex;gap:10px;align-items:flex-start;font-size:.97rem}
+  .booking-list li::before{content:"✓";color:var(--teal);font-weight:700;margin-top:1px}
+
+  .form-card{
+    background:#fff;border-radius:var(--radius-lg);padding:34px;
+    box-shadow:var(--shadow-lg);
+  }
+  .form-card h3{margin-bottom:6px;font-size:1.4rem}
+  .form-card .small{color:var(--ink-soft);font-size:.9rem;margin-bottom:24px}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+  .form-row.single{grid-template-columns:1fr}
+  .field label{display:block;font-size:.82rem;font-weight:600;margin-bottom:6px;color:var(--ink)}
+  .field input,.field select,.field textarea{
+    width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:12px;
+    font-family:inherit;font-size:.95rem;background:var(--cream);color:var(--ink);
+    transition:border-color .15s ease, box-shadow .15s ease;
+  }
+  .field textarea{resize:vertical;min-height:90px}
+  .field input:focus,.field select:focus,.field textarea:focus{
+    outline:none;border-color:var(--teal);box-shadow:0 0 0 4px var(--teal-soft);
+  }
+  .form-card .btn{width:100%;justify-content:center;margin-top:8px;padding:15px}
+
+  @media (max-width:880px){
+    .booking-grid{grid-template-columns:1fr;gap:32px}
+    .form-row{grid-template-columns:1fr}
+  }
+
+  /* ---------- FAQ ---------- */
+  .faq{background:var(--cream)}
+  .faq-list{max-width:780px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+  details.faq-item{
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+    padding:0;overflow:hidden;transition:box-shadow .2s ease;
+  }
+  details.faq-item[open]{box-shadow:var(--shadow-md)}
+  details.faq-item summary{
+    list-style:none;cursor:pointer;
+    padding:20px 24px;font-weight:600;font-size:1rem;
+    display:flex;justify-content:space-between;align-items:center;gap:20px;
+  }
+  details.faq-item summary::-webkit-details-marker{display:none}
+  details.faq-item summary::after{
+    content:"+";font-size:1.5rem;color:var(--teal);transition:transform .2s ease;line-height:1;
+  }
+  details.faq-item[open] summary::after{transform:rotate(45deg)}
+  details.faq-item .a{padding:0 24px 22px;color:var(--ink-soft);font-size:.97rem}
+
+  /* ---------- Footer ---------- */
+  footer{
+    background:var(--teal);color:#D4E7EB;padding:60px 0 28px;
+  }
+  .foot-grid{
+    display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:36px;margin-bottom:40px;
+  }
+  .foot-col h4{color:#fff;font-family:'Montserrat',sans-serif;font-size:.85rem;
+    letter-spacing:.12em;text-transform:uppercase;font-weight:600;margin-bottom:16px}
+  .foot-col ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+  .foot-col a{color:#D4E7EB;font-size:.92rem}
+  .foot-col a:hover{color:#fff;text-decoration:none}
+  .foot-brand{display:flex;align-items:center;gap:10px;margin-bottom:14px;color:#fff;
+    font-family:'Caveat',cursive;font-weight:700;font-size:2rem}
+  .foot-tag{font-size:1.2rem;color:#fff;margin-bottom:18px;font-family:'Caveat',cursive}
+  .foot-bottom{
+    border-top:1px solid rgba(255,255,255,.15);padding-top:22px;
+    display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;
+    font-size:.85rem;color:#A8C8CE;
+  }
+  @media (max-width:880px){.foot-grid{grid-template-columns:1fr 1fr}}
+
+  /* ---------- Tiny utilities ---------- */
+  .center{text-align:center}
+  .mt-32{margin-top:32px}
+</style>
+</head>
+<body>
+
+<!-- ===== NAV ===== -->
+<header class="nav">
+  <div class="container nav-inner">
+    <a href="#top" class="brand" aria-label="Little Moments home">
+      <img class="brand-logo" src="images/logo.png" alt="Little Moments logo" />
+      <span>Little Moments</span>
+    </a>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="#services">Services</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#recent">Recent work</a></li>
+        <li><a href="#reviews">Reviews</a></li>
+        <li><a href="#process">How it works</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+    </nav>
+    <div class="nav-cta">
+      <a href="#book" class="btn btn-primary">Book now</a>
+    </div>
+  </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="top">
+  <div class="container hero-grid">
+    <div>
+      <span class="eyebrow">★ Trusted by local families</span>
+      <h1>Care, creativity &amp; <span class="accent">little moments</span> that matter.</h1>
+      <p class="lead">
+        Babysitting, face painting and party assistance — delivered with patience, energy and a calm, caring touch. CPR &amp; First Aid certified, available 7 days a week.
+      </p>
+      <div class="hero-cta">
+        <a href="#book" class="btn btn-primary">Book a service →</a>
+        <a href="#services" class="btn btn-ghost">See services &amp; pricing</a>
+      </div>
+      <div class="hero-trust">
+        <span><span class="stars">★★★★★</span> <strong>5.0</strong> from local parents</span>
+        <span>· <strong>30+</strong> kids cared for</span>
+        <span>· <strong>CPR &amp; First Aid</strong> certified</span>
+      </div>
+    </div>
+
+    <div class="hero-art" aria-hidden="true">
+      <div class="art-card main">
+        <img src="images/face-painting-1.jpg" alt="Face painting at a birthday party" />
+      </div>
+      <div class="art-card float-1">
+        <div class="mini-stars">★★★★★</div>
+        <div class="mini-quote">"Sienna is a fabulous babysitter — punctual, organised &amp; our kids adore her."</div>
+        <div class="mini-author">— Lauren</div>
+      </div>
+      <div class="art-card float-2">
+        <div class="mini-stars">★★★★★</div>
+        <div class="mini-quote">"Kept 27 kids entertained at my 40th — 4 different designs each. Magic."</div>
+        <div class="mini-author">— Emily</div>
+      </div>
+      <div class="art-card float-3">
+        <div class="mini-stars">★★★★★</div>
+        <div class="mini-quote">"Calm, caring, a natural with kids."</div>
+        <div class="mini-author">— Hannah</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TRUST BAR ===== -->
+<div class="trustbar">
+  <div class="container trustbar-inner">
+    <span><span class="emoji">⭐</span> 5-star reviews</span>
+    <span><span class="emoji">🩺</span> CPR, AED &amp; First Aid certified</span>
+    <span><span class="emoji">📅</span> Available Mon – Sun</span>
+    <span><span class="emoji">💛</span> Loved by 30+ neighbourhood families</span>
+    <span><span class="emoji">📱</span> Apple Pay coming soon</span>
+  </div>
+</div>
+
+<!-- ===== SERVICES ===== -->
+<section class="services" id="services">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">What I offer</span>
+      <h2>Three ways to get a little of your time back.</h2>
+      <p>Whether it's an afternoon to yourself, a birthday party that runs smoothly, or a room full of kids who need entertaining — I've got you covered.</p>
+    </div>
+
+    <div class="service-grid">
+      <!-- Babysitting -->
+      <article class="service-card has-photo">
+        <div class="service-photo">
+          <img src="images/babysitting.jpg" alt="Babysitting service" />
+        </div>
+        <div class="service-icon">🧸</div>
+        <h3>Babysitting</h3>
+        <p>Safe, loving, attentive care while you take care of you. Imaginative play, creative activities, screen-free fun — and yes, I'll get them to bed on time.</p>
+        <div class="service-price">$20<small> / hour</small></div>
+        <div class="service-meta">Includes Homework Club at the same rate</div>
+        <a href="#book" class="btn btn-primary">Book babysitting</a>
+      </article>
+
+      <!-- Face Painting -->
+      <article class="service-card has-photo">
+        <div class="service-photo">
+          <img src="images/face-painting-2.jpg" alt="Recent face painting work" />
+        </div>
+        <div class="service-icon">🎨</div>
+        <h3>Face Painting</h3>
+        <p>Vibrant, professional-grade designs that turn kids into superheroes, princesses, animals and magical creatures. Perfect for parties, events &amp; community days.</p>
+        <div class="service-price">$80<small> · up to 15 kids</small></div>
+        <div class="service-meta">Larger groups — quote on application</div>
+        <a href="#book" class="btn btn-primary">Book face painting</a>
+      </article>
+
+      <!-- Party Assist -->
+      <article class="service-card has-photo">
+        <div class="service-photo">
+          <img src="images/party-assist.jpg" alt="Party assist service" />
+        </div>
+        <div class="service-icon">🎉</div>
+        <h3>Party Assist</h3>
+        <p>Your secret weapon for a stress-free party. I keep the kids happy with games, colouring &amp; face painting so the adults can actually enjoy the day.</p>
+        <div class="service-price">$50<small> / hour</small></div>
+        <div class="service-meta">Includes set up, pack away &amp; face painting (bundled rate $60)</div>
+        <a href="#book" class="btn btn-primary">Book party assist</a>
+      </article>
+    </div>
+
+    <div class="service-extras">
+      <span class="pill">📚 Homework Club — $20/hr</span>
+      <span class="pill">🎁 Gift Wrapping — ask for a quote</span>
+      <span class="pill">🧁 Custom mini-events — let's chat</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ABOUT ===== -->
+<section class="about" id="about">
+  <div class="container about-grid">
+    <div class="about-photo">
+      <img src="images/sienna-about.png" alt="Sienna" />
+    </div>
+    <div>
+      <span class="eyebrow">Meet Sienna</span>
+      <h2>Hi, I'm Sienna — and I genuinely love this work.</h2>
+      <p>I grew up on a 'quiet' street with nearly 30 younger kids — it was always a little chaotic and I loved every minute. As one of the older kids, I learned how to keep little ones engaged, how to settle big emotions, and how to make ordinary afternoons feel like an adventure.</p>
+      <p>That's the energy I bring to every booking: patient, calm, creative, and on time. Parents tell me their kids look forward to my visits — that's the part I'm proudest of.</p>
+      <div class="badges">
+        <span class="badge"><span class="dot"></span> CPR Certified</span>
+        <span class="badge"><span class="dot"></span> AED Certified</span>
+        <span class="badge"><span class="dot"></span> First Aid Certified</span>
+        <span class="badge"><span class="dot"></span> Reference-checked</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== RECENT WORK ===== -->
+<section class="recent" id="recent">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Recent work</span>
+      <h2>A few moments from recent jobs.</h2>
+      <p>Real kids, real smiles, real face paint that lasted the whole party.</p>
+    </div>
+
+    <div class="recent-grid">
+      <div class="recent-card">
+        <img src="images/face-painting-1.jpg" alt="Face painting at a community event" />
+        <div class="caption">Community group event</div>
+      </div>
+      <div class="recent-card">
+        <img src="images/sienna-about.png" alt="Sienna in action" />
+        <div class="caption">Behind the scenes</div>
+      </div>
+      <div class="recent-card">
+        <img src="images/face-painting-2.jpg" alt="Birthday party face painting" />
+        <div class="caption">Birthday party</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== REVIEWS ===== -->
+<section class="reviews" id="reviews">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">What parents say</span>
+      <h2>Real words from local families.</h2>
+      <p>The best feedback I get is when kids ask when I'm coming back. Here's what their parents have to say.</p>
+    </div>
+
+    <div class="review-grid">
+      <article class="review-card">
+        <div class="stars">★★★★★</div>
+        <blockquote>"Sienna is a fabulous babysitter. She is punctual, organised, ensures she has all information needed and our kids absolutely adore her. She keeps them entertained with imaginative play, creative activities and even got them to go to bed on time. We wouldn't hesitate to recommend Sienna's services."</blockquote>
+        <div class="review-meta">
+          <div class="avatar">L</div>
+          <div>
+            <div class="review-name">Lauren</div>
+            <div class="review-tag">Babysitting</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="review-card">
+        <div class="stars">★★★★★</div>
+        <blockquote>"Sienna brings so much energy, patience, and care to her time with our kids. From the moment she walks in the door she connects with them, keeping them entertained and engaged in creative activities. She has a calm, caring and responsible demeanour, and it's clear she enjoys spending time with kids and is a natural at it."</blockquote>
+        <div class="review-meta">
+          <div class="avatar">H</div>
+          <div>
+            <div class="review-name">Hannah</div>
+            <div class="review-tag">Babysitting</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="review-card">
+        <div class="stars">★★★★★</div>
+        <blockquote>"I enlisted Sienna's amazing face painting skills for my 40th birthday, where she kept 27 kids entertained offering 4 different face painting designs each for both boys and girls. She did not disappoint — the kids absolutely loved it, and the adults could enjoy a quiet drink to celebrate."</blockquote>
+        <div class="review-meta">
+          <div class="avatar">E</div>
+          <div>
+            <div class="review-name">Emily</div>
+            <div class="review-tag">Face Painting</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="review-card">
+        <div class="stars">★★★★★</div>
+        <blockquote>"Sienna provided face painting services for our Little Village Community Group. The children all came away with massive smiles — butterflies, cats, princesses, flowers, rainbows. She adapted the styles to the kids' liking, so everyone walked away thrilled."</blockquote>
+        <div class="review-meta">
+          <div class="avatar">N</div>
+          <div>
+            <div class="review-name">Nicole</div>
+            <div class="review-tag">Face Painting</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="review-card">
+        <div class="stars">★★★★★</div>
+        <blockquote>"I enlisted Sienna's babysitting services so I could get larger jobs done around the house. She kept my two boys (8 &amp; 5) entertained — they played games and swam in the pool. I noticed Sienna managing sibling conflict calmly, correcting behaviour without damaging her relationship with them. Highly recommend."</blockquote>
+        <div class="review-meta">
+          <div class="avatar">E</div>
+          <div>
+            <div class="review-name">Emily</div>
+            <div class="review-tag">Babysitting</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="review-card">
+        <div class="stars">★★★★★</div>
+        <blockquote>"Sienna has a calm and gentle nature, and our daughters (4 and 6 years old) adore her. They always look forward to their time with Sienna."</blockquote>
+        <div class="review-meta">
+          <div class="avatar">A</div>
+          <div>
+            <div class="review-name">Amy</div>
+            <div class="review-tag">Babysitting</div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PROCESS ===== -->
+<section class="process" id="process">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow" style="background:rgba(255,255,255,.15);color:#fff">How it works</span>
+      <h2>Three steps from "I need help" to "thank you, that was perfect."</h2>
+    </div>
+
+    <div class="step-grid">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>Send the booking form</h3>
+        <p>Tell me what you need, when, where, and a little about your kids. It takes about 60 seconds.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>I confirm by email</h3>
+        <p>I'll reply quickly to lock in the date and time, ask any questions, and send everything you need.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>I arrive, ready to make magic</h3>
+        <p>On time, organised, and prepared. Pay on the day by direct deposit (Apple Pay coming soon).</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== BOOKING ===== -->
+<section class="booking" id="book">
+  <div class="container booking-inner">
+    <div class="booking-grid">
+      <div>
+        <span class="eyebrow">Book a service</span>
+        <h2>Let's lock in your little moment.</h2>
+        <p>Send the form and I'll get back to you within a day to confirm.</p>
+        <ul class="booking-list">
+          <li>No deposit required to book</li>
+          <li>Free cancellation up to 24 hours before</li>
+          <li>Available 7 days a week</li>
+          <li>Direct deposit on the day · Apple Pay coming soon</li>
+        </ul>
+        <p style="margin-top:8px;font-size:.92rem">
+          Prefer to email? <a href="mailto:smjarvisto@gmail.com">smjarvisto@gmail.com</a>
+        </p>
+      </div>
+
+      <form class="form-card" onsubmit="event.preventDefault(); window.location='mailto:smjarvisto@gmail.com?subject=Booking%20enquiry%20-%20Little%20Moments&body=Hi%20Sienna%2C%20I%27d%20like%20to%20book%20a%20service.';">
+        <h3>Booking enquiry</h3>
+        <p class="small">Replies within 24 hours · No payment required to enquire</p>
+
+        <div class="form-row">
+          <div class="field">
+            <label for="name">Your name</label>
+            <input id="name" name="name" type="text" placeholder="Jane Smith" required />
+          </div>
+          <div class="field">
+            <label for="phone">Phone</label>
+            <input id="phone" name="phone" type="tel" placeholder="04xx xxx xxx" />
+          </div>
+        </div>
+
+        <div class="form-row single">
+          <div class="field">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" placeholder="you@example.com" required />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="field">
+            <label for="service">Service</label>
+            <select id="service" name="service" required>
+              <option value="">Choose a service…</option>
+              <option>Babysitting ($20/hr)</option>
+              <option>Homework Club ($20/hr)</option>
+              <option>Face Painting (from $80)</option>
+              <option>Party Assist ($50/hr)</option>
+              <option>Gift Wrapping</option>
+              <option>Something else</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="date">Preferred date</label>
+            <input id="date" name="date" type="date" />
+          </div>
+        </div>
+
+        <div class="form-row single">
+          <div class="field">
+            <label for="notes">Anything I should know?</label>
+            <textarea id="notes" name="notes" placeholder="Number &amp; ages of kids, location, special requests, allergies…"></textarea>
+          </div>
+        </div>
+
+        <button class="btn btn-primary" type="submit">Send booking enquiry →</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section class="faq" id="faq">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Good questions</span>
+      <h2>Quick answers, before you ask.</h2>
+    </div>
+
+    <div class="faq-list">
+      <details class="faq-item">
+        <summary>What ages do you look after?</summary>
+        <div class="a">I'm comfortable with kids of all ages — from toddlers up through primary-school age. Mention your kids' ages in the booking form and I'll tailor activities to suit.</div>
+      </details>
+      <details class="faq-item">
+        <summary>What areas do you cover?</summary>
+        <div class="a">I'm based locally and travel within a reasonable distance for bookings. Pop your address into the booking form and I'll confirm whether I can make it work.</div>
+      </details>
+      <details class="faq-item">
+        <summary>How do I pay?</summary>
+        <div class="a">Direct deposit on the day of the booking — I'll send you the details once your booking is confirmed. Apple Pay is coming soon.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Are you certified?</summary>
+        <div class="a">Yes — I'm certified in CPR, AED and First Aid through CPD Certification Service and the Save A Life organisation. Happy to provide certificate copies on request.</div>
+      </details>
+      <details class="faq-item">
+        <summary>How far in advance should I book?</summary>
+        <div class="a">As soon as you can! Weekend slots and party dates fill up first. That said, last-minute enquiries are always welcome — I'll let you know what's available.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Can I combine services? (e.g. face painting + party assist)</summary>
+        <div class="a">Absolutely — Party Assist already includes face painting in the hourly rate. For other combinations, just mention what you need in the booking form and I'll put together a plan.</div>
+      </details>
+      <details class="faq-item">
+        <summary>What happens if I need to cancel?</summary>
+        <div class="a">No problem — free cancellation up to 24 hours before. After that, I appreciate as much notice as you can give so I can reorganise the day.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FINAL CTA ===== -->
+<section style="background:var(--teal);color:#fff;padding:70px 0">
+  <div class="container center">
+    <h2 style="color:#fff;margin-bottom:14px;font-size:clamp(2.5rem,5vw,4rem)">Ready to book your little moment?</h2>
+    <p style="color:#D4E7EB;font-size:1.08rem;margin-bottom:30px">It takes 60 seconds. I'll reply within a day.</p>
+    <a href="#book" class="btn btn-yellow">Book now →</a>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div class="foot-col">
+        <div class="foot-brand">
+          <img class="brand-logo" src="images/logo.png" alt="Little Moments logo" />
+          <span>Little Moments</span>
+        </div>
+        <p class="foot-tag">"It's the little moments that matter."</p>
+        <p style="font-size:.92rem">Babysitting, face painting &amp; party assistance — delivered with care, 7 days a week.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="#services">Babysitting</a></li>
+          <li><a href="#services">Face Painting</a></li>
+          <li><a href="#services">Party Assist</a></li>
+          <li><a href="#services">Homework Club</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Site</h4>
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#reviews">Reviews</a></li>
+          <li><a href="#process">How it works</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:smjarvisto@gmail.com">smjarvisto@gmail.com</a></li>
+          <li>Available Mon — Sun</li>
+          <li><a href="#book">Book online →</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© <span id="year"></span> Little Moments. All rights reserved.</span>
+      <span>littlemoments.com.au</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
