@@ -8,456 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-<style>
-  /* ---------- Design tokens (matched to current site) ---------- */
-  :root{
-    --teal:         #196470;   /* primary brand — deep teal from existing site */
-    --teal-dark:    #114A54;
-    --teal-soft:    #D4E7EB;
-    --yellow:       #ECCD7B;   /* mustard accent from existing site */
-    --yellow-soft:  #FAF1DA;
-    --sky:          #B7DFEC;   /* light sky blue from logo banner */
-    --sky-soft:     #E4F2F8;
-    --pink:         #EC6FA1;   /* logo pink accent */
-    --cream:        #FFFFFF;   /* page background — kept white like current site */
-    --cream-deep:   #F7F4EC;
-    --coral:        #196470;   /* alias for backwards-compat in CSS below */
-    --coral-dark:   #114A54;
-    --coral-soft:   #D4E7EB;
-    --gold:         #ECCD7B;
-    --sage:         #B7DFEC;
-    --ink:          #1A1A1A;   /* primary text — near-black like current site */
-    --ink-soft:     #4A4A4A;
-    --line:         #E5E5E5;
-    --white:        #FFFFFF;
-    --shadow-sm:    0 1px 2px rgba(42,37,34,.06), 0 2px 6px rgba(42,37,34,.05);
-    --shadow-md:    0 6px 24px rgba(42,37,34,.08);
-    --shadow-lg:    0 18px 50px rgba(42,37,34,.12);
-    --radius:       18px;
-    --radius-lg:    28px;
-    --max:          1180px;
-  }
-
-  *{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth}
-  body{
-    font-family:'Open Sans','Montserrat',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
-    background:var(--cream);
-    color:var(--ink);
-    line-height:1.6;
-    -webkit-font-smoothing:antialiased;
-  }
-  img{max-width:100%;display:block}
-  a{color:var(--teal);text-decoration:none}
-  a:hover{text-decoration:underline}
-
-  h1,h2,h3,h4{font-family:'Caveat',cursive;color:var(--ink);line-height:1.1;font-weight:600;letter-spacing:0}
-  h1{font-size:clamp(3rem,6.5vw,5.5rem);font-weight:700}
-  h2{font-size:clamp(2.5rem,4.5vw,3.6rem);font-weight:700}
-  h3{font-family:'Montserrat',sans-serif;font-size:1.25rem;font-weight:700;letter-spacing:-.01em}
-  h4{font-family:'Montserrat',sans-serif}
-
-  .container{max-width:var(--max);margin:0 auto;padding:0 24px}
-  .eyebrow{
-    display:inline-block;
-    font-family:'Montserrat',sans-serif;
-    font-size:.78rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
-    color:var(--teal-dark);
-    background:var(--teal-soft);
-    padding:6px 14px;border-radius:999px;margin-bottom:18px;
-  }
-
-  /* ---------- Buttons ---------- */
-  .btn{
-    display:inline-flex;align-items:center;gap:8px;
-    padding:14px 26px;border-radius:999px;
-    font-family:'Montserrat',sans-serif;
-    font-weight:600;font-size:1rem;
-    transition:transform .15s ease, box-shadow .2s ease, background .2s ease;
-    border:0;cursor:pointer;
-    text-decoration:none;
-  }
-  .btn-primary{background:var(--teal);color:#fff;box-shadow:var(--shadow-md)}
-  .btn-primary:hover{background:var(--teal-dark);transform:translateY(-2px);text-decoration:none}
-  .btn-yellow{background:var(--yellow);color:var(--ink);box-shadow:var(--shadow-md)}
-  .btn-yellow:hover{background:#E6C46B;transform:translateY(-2px);text-decoration:none}
-  .btn-ghost{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
-  .btn-ghost:hover{background:var(--ink);color:#fff;text-decoration:none}
-  .btn-light{background:#fff;color:var(--ink);box-shadow:var(--shadow-sm)}
-  .btn-light:hover{box-shadow:var(--shadow-md);transform:translateY(-2px);text-decoration:none}
-
-  /* ---------- Nav ---------- */
-  .nav{
-    position:sticky;top:0;z-index:50;
-    background:rgba(255,255,255,.92);
-    backdrop-filter:blur(10px);
-    border-bottom:1px solid var(--line);
-  }
-  .nav-inner{
-    display:flex;align-items:center;justify-content:space-between;
-    height:96px;
-  }
-  .brand{
-    display:flex;align-items:center;gap:14px;
-    font-family:'Caveat',cursive;font-weight:700;font-size:2rem;color:var(--ink);line-height:1;
-  }
-  .brand-logo{
-    width:72px;height:72px;border-radius:14px;
-    object-fit:cover;
-    background:var(--sky);
-    display:block;
-  }
-  .nav-inner{height:96px}
-  .foot-brand .brand-logo{width:64px;height:64px;border-radius:12px}
-  .nav-links{display:flex;gap:28px;list-style:none}
-  .nav-links a{color:var(--ink);font-weight:500;font-size:.95rem}
-  .nav-links a:hover{color:var(--coral-dark);text-decoration:none}
-  .nav-cta{display:flex;gap:10px;align-items:center}
-  .nav .btn{padding:10px 20px;font-size:.92rem}
-
-  @media (max-width:880px){
-    .nav-links{display:none}
-  }
-
-  /* ---------- Hero ---------- */
-  .hero{
-    position:relative;
-    padding:80px 0 60px;
-    overflow:hidden;
-  }
-  .hero-grid{
-    display:grid;grid-template-columns:1.05fr .95fr;gap:64px;align-items:center;
-  }
-  .hero h1 .accent{
-    color:var(--teal);
-    font-weight:700;
-  }
-  .hero p.lead{
-    font-size:1.15rem;color:var(--ink-soft);
-    margin:22px 0 32px;max-width:520px;
-  }
-  .hero-cta{display:flex;gap:14px;flex-wrap:wrap}
-  .hero-trust{
-    display:flex;gap:22px;align-items:center;margin-top:40px;flex-wrap:wrap;
-    font-size:.9rem;color:var(--ink-soft);
-  }
-  .hero-trust .stars{color:var(--gold);letter-spacing:1px;font-size:1rem}
-  .hero-trust strong{color:var(--ink)}
-
-  /* Hero illustration card stack */
-  .hero-art{
-    position:relative;height:520px;
-  }
-  .art-card{
-    position:absolute;border-radius:var(--radius-lg);
-    box-shadow:var(--shadow-lg);
-    overflow:hidden;
-    background:var(--cream-deep);
-  }
-  .art-card.main{
-    inset:30px 30px 30px 60px;
-    background:linear-gradient(160deg,var(--sky) 0%,var(--teal-soft) 60%,var(--yellow) 140%);
-    display:flex;align-items:center;justify-content:center;
-    overflow:hidden;
-  }
-  .art-card.main img{
-    width:100%;height:100%;object-fit:cover;display:block;
-  }
-  .art-card.main .emoji{font-size:9rem;filter:drop-shadow(0 8px 24px rgba(25,100,112,.35))}
-  .art-card.float-1{
-    top:0;right:0;width:180px;padding:18px 18px 16px;background:#fff;
-    transform:rotate(4deg);
-  }
-  .art-card.float-2{
-    bottom:10px;left:0;width:220px;padding:18px;background:#fff;
-    transform:rotate(-3deg);
-  }
-  .art-card.float-3{
-    top:50%;right:-10px;width:160px;padding:14px 16px;background:var(--yellow);
-    transform:rotate(6deg);color:var(--ink);
-  }
-  .mini-stars{color:#E8B83A;font-size:.85rem;letter-spacing:1px;margin-bottom:6px}
-  .mini-quote{font-size:.82rem;line-height:1.45;color:var(--ink)}
-  .mini-author{font-size:.72rem;color:var(--ink-soft);margin-top:6px;font-weight:600}
-
-  @media (max-width:880px){
-    .hero{padding:48px 0 40px}
-    .hero-grid{grid-template-columns:1fr;gap:32px}
-    .hero-art{height:340px}
-    .art-card.main{inset:20px 20px 20px 30px}
-    .art-card.main .emoji{font-size:6rem}
-  }
-
-  /* ---------- Trust bar ---------- */
-  .trustbar{
-    background:var(--teal);color:#fff;padding:22px 0;
-    margin-top:0;
-  }
-  .trustbar-inner{
-    display:flex;justify-content:space-around;flex-wrap:wrap;gap:20px;
-    font-size:.95rem;font-weight:500;
-  }
-  .trustbar span{display:inline-flex;align-items:center;gap:8px}
-  .trustbar .emoji{font-size:1.1rem}
-
-  /* ---------- Section base ---------- */
-  section{padding:90px 0}
-  .section-head{text-align:center;margin-bottom:56px;max-width:680px;margin-left:auto;margin-right:auto}
-  .section-head p{color:var(--ink-soft);font-size:1.05rem;margin-top:14px}
-
-  /* ---------- Services ---------- */
-  .services{background:var(--cream)}
-  .service-grid{
-    display:grid;grid-template-columns:repeat(3,1fr);gap:24px;
-  }
-  .service-card{
-    background:#fff;border-radius:var(--radius-lg);
-    padding:36px 30px 32px;
-    border:1px solid var(--line);
-    transition:transform .25s ease, box-shadow .25s ease;
-    display:flex;flex-direction:column;
-    position:relative;overflow:hidden;
-  }
-  .service-photo{
-    margin:-36px -30px 22px;height:180px;overflow:hidden;
-    border-bottom:5px solid transparent;
-  }
-  .service-photo img{width:100%;height:100%;object-fit:cover;display:block}
-  .service-card.has-photo::before{display:none}
-  .service-card.has-photo .service-icon{display:none}
-  .service-card::before{
-    content:"";position:absolute;top:0;left:0;right:0;height:5px;
-    background:linear-gradient(90deg,var(--teal),var(--yellow));
-  }
-  .service-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg)}
-  .service-icon{
-    width:64px;height:64px;border-radius:18px;
-    background:var(--sky);display:grid;place-items:center;
-    font-size:2rem;margin-bottom:20px;
-  }
-  .service-card:nth-child(2) .service-icon{background:var(--yellow-soft)}
-  .service-card:nth-child(3) .service-icon{background:var(--teal-soft)}
-  .service-card h3{margin-bottom:10px}
-  .service-card p{color:var(--ink-soft);font-size:.97rem;margin-bottom:18px;flex:1}
-  .service-price{
-    font-family:'Caveat',cursive;font-size:2.4rem;font-weight:700;
-    color:var(--teal);margin-bottom:6px;line-height:1;
-  }
-  .service-price small{font-size:.85rem;color:var(--ink-soft);font-weight:400;font-family:'Open Sans',sans-serif}
-  .service-meta{font-size:.85rem;color:var(--ink-soft);margin-bottom:22px}
-  .service-card .btn{align-self:flex-start;padding:11px 22px;font-size:.92rem}
-
-  .service-extras{
-    margin-top:36px;display:flex;gap:18px;flex-wrap:wrap;justify-content:center;
-    color:var(--ink-soft);font-size:.95rem;
-  }
-  .service-extras .pill{
-    background:#fff;border:1px solid var(--line);padding:10px 18px;border-radius:999px;
-    display:inline-flex;align-items:center;gap:8px;
-  }
-
-  @media (max-width:880px){
-    .service-grid{grid-template-columns:1fr}
-  }
-
-  /* ---------- About ---------- */
-  .about{background:var(--sky)}
-  .about-grid{
-    display:grid;grid-template-columns:1fr 1.3fr;gap:60px;align-items:center;
-  }
-  .about-photo{
-    aspect-ratio:4/5;border-radius:var(--radius-lg);
-    box-shadow:var(--shadow-lg);
-    position:relative;overflow:hidden;
-  }
-  .about-photo img{width:100%;height:100%;object-fit:cover;display:block}
-  .about-photo::after{
-    content:"Sienna";position:absolute;bottom:0;left:0;right:0;text-align:center;
-    font-family:'Caveat',cursive;font-size:1.7rem;color:var(--teal);background:rgba(255,255,255,.92);
-    padding:6px 0 8px;backdrop-filter:blur(6px);font-weight:700;
-  }
-  .about p{color:var(--ink-soft);font-size:1.05rem;margin-bottom:18px}
-  .about .badges{
-    display:flex;gap:12px;flex-wrap:wrap;margin-top:24px;
-  }
-  .badge{
-    display:inline-flex;align-items:center;gap:8px;
-    background:#fff;border:1px solid var(--line);padding:10px 16px;border-radius:14px;
-    font-size:.9rem;font-weight:500;
-  }
-  .badge .dot{width:8px;height:8px;border-radius:50%;background:var(--teal)}
-
-  @media (max-width:880px){
-    .about-grid{grid-template-columns:1fr;gap:36px}
-    .about-photo{max-width:320px;margin:0 auto}
-  }
-
-  /* ---------- Recent Work ---------- */
-  .recent{background:var(--cream-deep)}
-  .recent-grid{
-    display:grid;grid-template-columns:repeat(3,1fr);gap:18px;
-  }
-  .recent-card{
-    border-radius:var(--radius-lg);overflow:hidden;
-    box-shadow:var(--shadow-md);
-    aspect-ratio:4/3;
-    position:relative;
-    transition:transform .25s ease, box-shadow .25s ease;
-  }
-  .recent-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
-  .recent-card img{width:100%;height:100%;object-fit:cover;display:block}
-  .recent-card .caption{
-    position:absolute;left:0;right:0;bottom:0;
-    padding:14px 18px;
-    background:linear-gradient(to top,rgba(25,100,112,.85),transparent);
-    color:#fff;font-family:'Caveat',cursive;font-size:1.3rem;font-weight:600;
-  }
-  @media (max-width:880px){.recent-grid{grid-template-columns:1fr}}
-
-  /* ---------- Reviews ---------- */
-  .reviews{background:var(--cream)}
-  .review-grid{
-    display:grid;grid-template-columns:repeat(3,1fr);gap:22px;
-  }
-  .review-card{
-    background:#fff;border-radius:var(--radius);padding:26px 26px 24px;
-    border:1px solid var(--line);
-    display:flex;flex-direction:column;
-  }
-  .review-card .stars{color:#E8B83A;font-size:.95rem;letter-spacing:1.5px;margin-bottom:14px}
-  .review-card blockquote{
-    font-size:.97rem;line-height:1.6;color:var(--ink);font-style:italic;
-    margin-bottom:18px;flex:1;
-  }
-  .review-meta{
-    display:flex;align-items:center;gap:12px;
-    padding-top:14px;border-top:1px solid var(--line);
-  }
-  .avatar{
-    width:38px;height:38px;border-radius:50%;
-    background:linear-gradient(135deg,var(--teal),var(--sky));
-    color:#fff;display:grid;place-items:center;font-weight:700;
-  }
-  .review-name{font-weight:600;font-size:.92rem}
-  .review-tag{font-size:.78rem;color:var(--ink-soft)}
-
-  @media (max-width:880px){
-    .review-grid{grid-template-columns:1fr}
-  }
-
-  /* ---------- Process ---------- */
-  .process{background:var(--teal);color:#fff}
-  .process h2{color:#fff}
-  .process .section-head p{color:#D4E7EB}
-  .step-grid{
-    display:grid;grid-template-columns:repeat(3,1fr);gap:24px;
-  }
-  .step{
-    background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);
-    padding:32px 28px;border-radius:var(--radius-lg);
-    position:relative;
-  }
-  .step-num{
-    width:54px;height:54px;border-radius:50%;
-    background:var(--yellow);color:var(--ink);display:grid;place-items:center;
-    font-family:'Caveat',cursive;font-size:2rem;font-weight:700;
-    margin-bottom:18px;
-  }
-  .step h3{color:#fff;margin-bottom:8px}
-  .step p{color:#D4E7EB;font-size:.95rem}
-  @media (max-width:880px){.step-grid{grid-template-columns:1fr}}
-
-  /* ---------- Booking CTA ---------- */
-  .booking{background:var(--yellow);position:relative;overflow:hidden}
-  .booking::before{
-    content:"";position:absolute;top:-80px;right:-80px;width:280px;height:280px;
-    background:var(--sky);border-radius:50%;opacity:.6;
-  }
-  .booking::after{
-    content:"";position:absolute;bottom:-100px;left:-60px;width:240px;height:240px;
-    background:var(--teal);border-radius:50%;opacity:.18;
-  }
-  .booking-inner{position:relative;z-index:1}
-  .booking-grid{
-    display:grid;grid-template-columns:1fr 1.1fr;gap:50px;align-items:center;
-  }
-  .booking h2{margin-bottom:14px}
-  .booking p{color:var(--ink-soft);font-size:1.05rem;margin-bottom:20px}
-  .booking-list{list-style:none;display:flex;flex-direction:column;gap:10px;margin-bottom:30px}
-  .booking-list li{display:flex;gap:10px;align-items:flex-start;font-size:.97rem}
-  .booking-list li::before{content:"✓";color:var(--teal);font-weight:700;margin-top:1px}
-
-  .form-card{
-    background:#fff;border-radius:var(--radius-lg);padding:34px;
-    box-shadow:var(--shadow-lg);
-  }
-  .form-card h3{margin-bottom:6px;font-size:1.4rem}
-  .form-card .small{color:var(--ink-soft);font-size:.9rem;margin-bottom:24px}
-  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
-  .form-row.single{grid-template-columns:1fr}
-  .field label{display:block;font-size:.82rem;font-weight:600;margin-bottom:6px;color:var(--ink)}
-  .field input,.field select,.field textarea{
-    width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:12px;
-    font-family:inherit;font-size:.95rem;background:var(--cream);color:var(--ink);
-    transition:border-color .15s ease, box-shadow .15s ease;
-  }
-  .field textarea{resize:vertical;min-height:90px}
-  .field input:focus,.field select:focus,.field textarea:focus{
-    outline:none;border-color:var(--teal);box-shadow:0 0 0 4px var(--teal-soft);
-  }
-  .form-card .btn{width:100%;justify-content:center;margin-top:8px;padding:15px}
-
-  @media (max-width:880px){
-    .booking-grid{grid-template-columns:1fr;gap:32px}
-    .form-row{grid-template-columns:1fr}
-  }
-
-  /* ---------- FAQ ---------- */
-  .faq{background:var(--cream)}
-  .faq-list{max-width:780px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
-  details.faq-item{
-    background:#fff;border:1px solid var(--line);border-radius:var(--radius);
-    padding:0;overflow:hidden;transition:box-shadow .2s ease;
-  }
-  details.faq-item[open]{box-shadow:var(--shadow-md)}
-  details.faq-item summary{
-    list-style:none;cursor:pointer;
-    padding:20px 24px;font-weight:600;font-size:1rem;
-    display:flex;justify-content:space-between;align-items:center;gap:20px;
-  }
-  details.faq-item summary::-webkit-details-marker{display:none}
-  details.faq-item summary::after{
-    content:"+";font-size:1.5rem;color:var(--teal);transition:transform .2s ease;line-height:1;
-  }
-  details.faq-item[open] summary::after{transform:rotate(45deg)}
-  details.faq-item .a{padding:0 24px 22px;color:var(--ink-soft);font-size:.97rem}
-
-  /* ---------- Footer ---------- */
-  footer{
-    background:var(--teal);color:#D4E7EB;padding:60px 0 28px;
-  }
-  .foot-grid{
-    display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:36px;margin-bottom:40px;
-  }
-  .foot-col h4{color:#fff;font-family:'Montserrat',sans-serif;font-size:.85rem;
-    letter-spacing:.12em;text-transform:uppercase;font-weight:600;margin-bottom:16px}
-  .foot-col ul{list-style:none;display:flex;flex-direction:column;gap:8px}
-  .foot-col a{color:#D4E7EB;font-size:.92rem}
-  .foot-col a:hover{color:#fff;text-decoration:none}
-  .foot-brand{display:flex;align-items:center;gap:10px;margin-bottom:14px;color:#fff;
-    font-family:'Caveat',cursive;font-weight:700;font-size:2rem}
-  .foot-tag{font-size:1.2rem;color:#fff;margin-bottom:18px;font-family:'Caveat',cursive}
-  .foot-bottom{
-    border-top:1px solid rgba(255,255,255,.15);padding-top:22px;
-    display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;
-    font-size:.85rem;color:#A8C8CE;
-  }
-  @media (max-width:880px){.foot-grid{grid-template-columns:1fr 1fr}}
-
-  /* ---------- Tiny utilities ---------- */
-  .center{text-align:center}
-  .mt-32{margin-top:32px}
-</style>
+<link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
@@ -470,11 +21,12 @@
     </a>
     <nav>
       <ul class="nav-links">
-        <li><a href="#services">Services</a></li>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="babysitting.html">Babysitting</a></li>
+        <li><a href="face-painting.html">Face Painting</a></li>
+        <li><a href="party-assist.html">Party Assist</a></li>
         <li><a href="#about">About</a></li>
-        <li><a href="#recent">Recent work</a></li>
         <li><a href="#reviews">Reviews</a></li>
-        <li><a href="#process">How it works</a></li>
         <li><a href="#faq">FAQ</a></li>
       </ul>
     </nav>
@@ -558,6 +110,7 @@
         <p>Safe, loving, attentive care while you take care of you. Imaginative play, creative activities, screen-free fun — and yes, I'll get them to bed on time.</p>
         <div class="service-price">$20<small> / hour</small></div>
         <div class="service-meta">Includes Homework Club at the same rate</div>
+        <a href="babysitting.html" class="service-link">Tell me more →</a>
         <a href="#book" class="btn btn-primary">Book babysitting</a>
       </article>
 
@@ -571,6 +124,7 @@
         <p>Vibrant, professional-grade designs that turn kids into superheroes, princesses, animals and magical creatures. Perfect for parties, events &amp; community days.</p>
         <div class="service-price">$80<small> · up to 15 kids</small></div>
         <div class="service-meta">Larger groups — quote on application</div>
+        <a href="face-painting.html" class="service-link">Tell me more →</a>
         <a href="#book" class="btn btn-primary">Book face painting</a>
       </article>
 
@@ -582,8 +136,9 @@
         <div class="service-icon">🎉</div>
         <h3>Party Assist</h3>
         <p>Your secret weapon for a stress-free party. I keep the kids happy with games, colouring &amp; face painting so the adults can actually enjoy the day.</p>
-        <div class="service-price">$50<small> / hour</small></div>
-        <div class="service-meta">Includes set up, pack away &amp; face painting (bundled rate $60)</div>
+        <div class="service-price">$60<small> / hour</small></div>
+        <div class="service-meta">3 games + prizes · Set up &amp; pack away · Face painting bundled at $60 · Up to 15 kids</div>
+        <a href="party-assist.html" class="service-link">Tell me more →</a>
         <a href="#book" class="btn btn-primary">Book party assist</a>
       </article>
     </div>
@@ -600,7 +155,7 @@
 <section class="about" id="about">
   <div class="container about-grid">
     <div class="about-photo">
-      <img src="images/sienna-about.png" alt="Sienna" />
+      <img src="images/sienna-about.jpg" alt="Sienna" />
     </div>
     <div>
       <span class="eyebrow">Meet Sienna</span>
@@ -632,7 +187,7 @@
         <div class="caption">Community group event</div>
       </div>
       <div class="recent-card">
-        <img src="images/sienna-about.png" alt="Sienna in action" />
+        <img src="images/sienna-about.jpg" alt="Sienna in action" />
         <div class="caption">Behind the scenes</div>
       </div>
       <div class="recent-card">
@@ -806,7 +361,7 @@
               <option>Babysitting ($20/hr)</option>
               <option>Homework Club ($20/hr)</option>
               <option>Face Painting (from $80)</option>
-              <option>Party Assist ($50/hr)</option>
+              <option>Party Assist ($60/hr)</option>
               <option>Gift Wrapping</option>
               <option>Something else</option>
             </select>
