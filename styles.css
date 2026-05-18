@@ -552,3 +552,24 @@ footer{
 }
 .cta-banner h2{color:#fff;margin-bottom:14px;font-size:clamp(2.2rem,4.5vw,3.4rem)}
 .cta-banner p{color:#D4E7EB;font-size:1.05rem;margin-bottom:26px}
+
+/* ---------- Photo gallery (face painting page) ---------- */
+.gallery{background:var(--cream-deep)}
+.gallery-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:16px;
+}
+.gallery-item{
+  border-radius:var(--radius);overflow:hidden;
+  aspect-ratio:1/1;
+  box-shadow:var(--shadow-sm);
+  transition:transform .25s ease, box-shadow .25s ease;
+  background:var(--sky-soft);
+}
+.gallery-item:hover{transform:translateY(-3px);box-shadow:var(--shadow-md)}
+.gallery-item img{width:100%;height:100%;object-fit:cover;display:block}
+@media (max-width:880px){
+  .gallery-grid{grid-template-columns:repeat(2,1fr);gap:10px}
+}
+@media (max-width:500px){
+  .gallery-grid{grid-template-columns:1fr}
+}
