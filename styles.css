@@ -406,6 +406,32 @@ section{padding:90px 0}
 }
 .form-card .btn{width:100%;justify-content:center;margin-top:8px;padding:15px}
 
+/* Games checkbox grid (Party Assist booking form) */
+.games-checks{
+  display:grid;grid-template-columns:1fr 1fr;gap:8px;
+  margin-top:4px;
+}
+.games-checks .game-check{
+  display:flex;align-items:flex-start;gap:8px;
+  background:var(--cream);border:1.5px solid var(--line);border-radius:10px;
+  padding:10px 12px;cursor:pointer;
+  transition:border-color .15s ease, background .15s ease;
+  font-size:.92rem;line-height:1.35;font-weight:500;
+}
+.games-checks .game-check:hover{border-color:var(--teal);background:var(--teal-soft)}
+.games-checks .game-check input{
+  margin-top:3px;flex-shrink:0;accent-color:var(--teal);
+}
+.games-checks .game-check em{
+  font-style:normal;color:var(--ink-soft);font-size:.82rem;font-weight:400;
+}
+.form-note{
+  font-size:.82rem;color:var(--ink-soft);margin-top:10px;line-height:1.4;
+}
+@media (max-width:600px){
+  .games-checks{grid-template-columns:1fr}
+}
+
 @media (max-width:880px){
   .booking-grid{grid-template-columns:1fr;gap:32px}
   .form-row{grid-template-columns:1fr}

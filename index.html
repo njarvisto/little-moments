@@ -408,6 +408,23 @@
           </div>
         </div>
 
+        <div class="form-row single party-only" id="games-row" style="display:none;">
+          <div class="field">
+            <label>Choose up to 3 games for Party Assist</label>
+            <div class="games-checks">
+              <label class="game-check"><input type="checkbox" name="games" value="Musical Chairs"> <span>Musical Chairs</span></label>
+              <label class="game-check"><input type="checkbox" name="games" value="Chocolate Dress-up"> <span>Chocolate Dress-up</span></label>
+              <label class="game-check"><input type="checkbox" name="games" value="Pin the Tail on the Donkey"> <span>Pin the Tail on the Donkey</span></label>
+              <label class="game-check"><input type="checkbox" name="games" value="Duck Duck Goose"> <span>Duck Duck Goose</span></label>
+              <label class="game-check"><input type="checkbox" name="games" value="Musical Statues"> <span>Musical Statues</span></label>
+              <label class="game-check"><input type="checkbox" name="games" value="Treasure Hunt"> <span>Treasure Hunt</span></label>
+              <label class="game-check"><input type="checkbox" name="games" value="Stuck in the Mud"> <span>Stuck in the Mud</span></label>
+              <label class="game-check"><input type="checkbox" name="games" value="Pass the Parcel (+$40)"> <span>Pass the Parcel <em>(+$40 for wrapped parcel &amp; prizes)</em></span></label>
+            </div>
+            <p class="form-note" id="games-note">Pick up to 3. Pass the Parcel is an optional add-on at +$40 (covers the wrapped parcel and prizes inside each layer).</p>
+          </div>
+        </div>
+
         <div class="form-row single">
           <div class="field">
             <label for="notes">Anything I should know?</label>
@@ -519,6 +536,43 @@
 
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Show the games selector only when "Party Assist" is chosen
+  (function(){
+    var serviceSelect = document.getElementById('service');
+    var gamesRow = document.getElementById('games-row');
+    var gamesNote = document.getElementById('games-note');
+    if (!serviceSelect || !gamesRow) return;
+
+    function update(){
+      var v = serviceSelect.value || '';
+      var isParty = v.indexOf('Party Assist') === 0;
+      gamesRow.style.display = isParty ? '' : 'none';
+      // uncheck games if hidden
+      if (!isParty) {
+        gamesRow.querySelectorAll('input[type=checkbox]').forEach(function(cb){ cb.checked = false; });
+      }
+    }
+    serviceSelect.addEventListener('change', update);
+    update();
+
+    // Enforce max 3 selected
+    var checks = gamesRow.querySelectorAll('input[type=checkbox][name=games]');
+    checks.forEach(function(cb){
+      cb.addEventListener('change', function(){
+        var selected = Array.from(checks).filter(function(c){return c.checked;});
+        if (selected.length > 3) {
+          cb.checked = false;
+          gamesNote.textContent = 'You can pick a maximum of 3 games. Uncheck one to add another.';
+          gamesNote.style.color = '#B73B3B';
+          setTimeout(function(){
+            gamesNote.textContent = 'Pick up to 3. Pass the Parcel is an optional add-on at +$40 (covers the wrapped parcel and prizes inside each layer).';
+            gamesNote.style.color = '';
+          }, 3500);
+        }
+      });
+    });
+  })();
 </script>
 
 </body>
