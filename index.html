@@ -32,6 +32,9 @@
     </nav>
     <div class="nav-cta">
       <a href="#book" class="btn btn-primary">Book now</a>
+      <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </div>
 </header>
@@ -137,7 +140,7 @@
         <h3>Party Assist</h3>
         <p>Your secret weapon for a stress-free party. I keep the kids happy with games, colouring &amp; face painting so the adults can actually enjoy the day.</p>
         <div class="service-price">$60<small> / hour</small></div>
-        <div class="service-meta">3 games + prizes · Set up &amp; pack away · Face painting bundled at $60 · Up to 15 kids</div>
+        <div class="service-meta">3 games + prizes · Set up &amp; pack away · Face painting bundled at $100 · Up to 15 kids</div>
         <a href="party-assist.html" class="service-link">Tell me more →</a>
         <a href="#book" class="btn btn-primary">Book party assist</a>
       </article>
@@ -536,6 +539,25 @@
 
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Mobile nav hamburger toggle
+  (function(){
+    var toggle = document.querySelector('.nav-toggle');
+    var menu = document.querySelector('.nav-links');
+    if(!toggle || !menu) return;
+    toggle.addEventListener('click', function(){
+      var open = menu.classList.toggle('open');
+      toggle.classList.toggle('active', open);
+      toggle.setAttribute('aria-expanded', open);
+    });
+    menu.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click', function(){
+        menu.classList.remove('open');
+        toggle.classList.remove('active');
+        toggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+  })();
 
   // Show the games selector only when "Party Assist" is chosen
   (function(){

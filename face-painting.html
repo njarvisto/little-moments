@@ -32,6 +32,9 @@
     </nav>
     <div class="nav-cta">
       <a href="index.html#book" class="btn btn-primary">Book now</a>
+      <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </div>
 </header>
@@ -121,6 +124,8 @@
       <div class="gallery-item"><img src="images/face-painting-16.jpg" alt="Face painting design" loading="lazy" /></div>
       <div class="gallery-item"><img src="images/face-painting-17.jpg" alt="Face painting design" loading="lazy" /></div>
       <div class="gallery-item"><img src="images/face-painting-18.jpg" alt="Face painting design" loading="lazy" /></div>
+      <div class="gallery-item"><img src="images/face-painting-19.jpg" alt="Face painting at a party" loading="lazy" /></div>
+      <div class="gallery-item"><img src="images/face-painting-20.jpg" alt="Turtle face painting design" loading="lazy" /></div>
     </div>
   </div>
 </section>
@@ -218,6 +223,25 @@
 
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Mobile nav hamburger toggle
+  (function(){
+    var toggle = document.querySelector('.nav-toggle');
+    var menu = document.querySelector('.nav-links');
+    if(!toggle || !menu) return;
+    toggle.addEventListener('click', function(){
+      var open = menu.classList.toggle('open');
+      toggle.classList.toggle('active', open);
+      toggle.setAttribute('aria-expanded', open);
+    });
+    menu.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click', function(){
+        menu.classList.remove('open');
+        toggle.classList.remove('active');
+        toggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+  })();
 </script>
 
 </body>

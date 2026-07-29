@@ -32,6 +32,9 @@
     </nav>
     <div class="nav-cta">
       <a href="index.html#book" class="btn btn-primary">Book now</a>
+      <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </div>
 </header>
@@ -90,7 +93,7 @@
       <li><strong>3 prizes included.</strong> One for the winner of each game, baked into the price.</li>
       <li><strong>Hands-on the whole party.</strong> Active for the full 2-hour party time, assisting all the children with whatever they need.</li>
       <li><strong>Set up &amp; pack away.</strong> I arrive early to set up and stay back to pack down — you don't lift a finger.</li>
-      <li><strong>Face painting bundled in at $60.</strong> Add face painting for up to 15 kids at the discounted bundle rate (saves $60 vs. the standalone $120 rate). Just tick it on the booking form.</li>
+      <li><strong>Face painting bundled in at $100.</strong> Add face painting for up to 15 kids at the discounted bundle rate (saves $20 vs. the standalone $120 rate). Just tick it on the booking form.</li>
       <li><strong>Cake liaison.</strong> I work with you on cake timing — making sure games fit around the cake moment, not the other way around.</li>
       <li><strong>Cake cutting &amp; handing out.</strong> One less thing for you to coordinate.</li>
       <li><strong>Clean up after games.</strong> I leave the space tidy.</li>
@@ -202,6 +205,24 @@
       <li><strong>I provide</strong> the time, the patience, and the proper bow</li>
     </ul>
     <p>Mention "gift wrapping" in the booking form with how many gifts and when you need them.</p>
+  </div>
+</section>
+
+<!-- ===== GALLERY ===== -->
+<section class="gallery">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Party Assist in action</span>
+      <h2>A few moments from recent parties.</h2>
+      <p>Games running, kids engaged, parents free to enjoy the day.</p>
+    </div>
+
+    <div class="gallery-grid">
+      <div class="gallery-item"><img src="images/party-assist.jpg" alt="Party assist in action" loading="lazy" /></div>
+      <div class="gallery-item"><img src="images/party-assist-2.jpg" alt="Backyard party setup with kids playing" loading="lazy" /></div>
+      <div class="gallery-item"><img src="images/party-assist-3.jpg" alt="Party guests enjoying cupcakes" loading="lazy" /></div>
+      <div class="gallery-item"><img src="images/party-assist-4.jpg" alt="Sienna running a group activity with kids" loading="lazy" /></div>
+    </div>
   </div>
 </section>
 
@@ -334,6 +355,25 @@
 
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Mobile nav hamburger toggle
+  (function(){
+    var toggle = document.querySelector('.nav-toggle');
+    var menu = document.querySelector('.nav-links');
+    if(!toggle || !menu) return;
+    toggle.addEventListener('click', function(){
+      var open = menu.classList.toggle('open');
+      toggle.classList.toggle('active', open);
+      toggle.setAttribute('aria-expanded', open);
+    });
+    menu.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click', function(){
+        menu.classList.remove('open');
+        toggle.classList.remove('active');
+        toggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+  })();
 </script>
 
 </body>
