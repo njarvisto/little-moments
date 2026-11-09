@@ -1,22 +1,28 @@
-/* ---------- Design tokens (matched to current site) ---------- */
+/* ---------- Design tokens (matched to Little Moments branding) ---------- */
 :root{
-  --teal:         #196470;   /* primary brand — deep teal from existing site */
-  --teal-dark:    #114A54;
+  --teal:         #2A6E7F;   /* primary brand — matched to logo body teal */
+  --teal-dark:    #1A4E5E;
   --teal-soft:    #D4E7EB;
-  --yellow:       #ECCD7B;   /* mustard accent from existing site */
-  --yellow-soft:  #FAF1DA;
-  --sky:          #B7DFEC;   /* light sky blue from logo banner */
+  --pink:         #EC5C9F;   /* bright pink — face painting accent */
+  --pink-dark:    #D13A80;
+  --pink-soft:    #FCE0ED;
+  --yellow:       #F5CA3C;   /* sunny yellow — party assist accent */
+  --yellow-dark:  #D9AE1E;
+  --yellow-soft:  #FEF3D4;
+  --turquoise:    #4FC3D4;   /* bright turquoise — babysitting accent */
+  --turquoise-dark:#35A8B9;
+  --turquoise-soft:#D6F2F6;
+  --sky:          #B7DFEC;
   --sky-soft:     #E4F2F8;
-  --pink:         #EC6FA1;   /* logo pink accent */
-  --cream:        #FFFFFF;   /* page background — kept white like current site */
-  --cream-deep:   #F7F4EC;
-  --coral:        #196470;   /* alias for backwards-compat in CSS below */
-  --coral-dark:   #114A54;
+  --cream:        #FFFFFF;
+  --cream-deep:   #FDF9F0;
+  --coral:        #2A6E7F;   /* alias for backwards-compat */
+  --coral-dark:   #1A4E5E;
   --coral-soft:   #D4E7EB;
-  --gold:         #ECCD7B;
-  --sage:         #B7DFEC;
-  --ink:          #1A1A1A;   /* primary text — near-black like current site */
-  --ink-soft:     #4A4A4A;
+  --gold:         #F5CA3C;
+  --sage:         #4FC3D4;
+  --ink:          #1A4A58;   /* primary text — matched to logo dark teal */
+  --ink-soft:     #4A6977;
   --line:         #E5E5E5;
   --white:        #FFFFFF;
   --shadow-sm:    0 1px 2px rgba(42,37,34,.06), 0 2px 6px rgba(42,37,34,.05);
@@ -90,14 +96,18 @@ h4{font-family:'Montserrat',sans-serif}
   display:flex;align-items:center;gap:14px;
   font-family:'Caveat',cursive;font-weight:700;font-size:2rem;color:var(--ink);line-height:1;
 }
+/* The new logo already includes "Little Moments" text — hide the duplicate span */
+.brand > span{display:none}
 .brand-logo{
-  width:72px;height:72px;border-radius:14px;
-  object-fit:cover;
-  background:var(--sky);
+  height:72px;width:auto;max-width:none;
+  border-radius:0;
+  object-fit:contain;
+  background:transparent;
   display:block;
 }
 .nav-inner{height:96px}
-.foot-brand .brand-logo{width:64px;height:64px;border-radius:12px}
+.foot-brand{align-items:center}
+.foot-brand .brand-logo{height:70px;width:auto;border-radius:0;background:transparent}
 .nav-links{display:flex;gap:28px;list-style:none}
 .nav-links a{color:var(--ink);font-weight:500;font-size:.95rem}
 .nav-links a:hover{color:var(--coral-dark);text-decoration:none}
@@ -126,7 +136,7 @@ h4{font-family:'Montserrat',sans-serif}
 @media (max-width:880px){
   .nav-toggle{display:flex}
   .nav-inner{height:80px}
-  .brand-logo{width:56px;height:56px;border-radius:12px}
+  .brand-logo{height:56px;width:auto;border-radius:0}
   .brand{font-size:1.6rem;gap:10px}
   .nav .btn{padding:9px 16px;font-size:.85rem}
   .nav-links{
@@ -140,9 +150,8 @@ h4{font-family:'Montserrat',sans-serif}
     border-bottom:1px solid var(--line);
     transform:translateY(-8px);
     opacity:0;
-    visibility:hidden;
     pointer-events:none;
-    transition:transform .2s ease, opacity .2s ease, visibility 0s linear .2s;
+    transition:transform .2s ease, opacity .2s ease;
     z-index:49;
     gap:0;
     margin:0;
@@ -150,9 +159,7 @@ h4{font-family:'Montserrat',sans-serif}
   .nav-links.open{
     transform:translateY(0);
     opacity:1;
-    visibility:visible;
     pointer-events:auto;
-    transition:transform .2s ease, opacity .2s ease, visibility 0s linear 0s;
   }
   .nav-links li{border-bottom:1px solid var(--line)}
   .nav-links li:last-child{border-bottom:0}
@@ -266,20 +273,28 @@ section{padding:90px 0}
   border-bottom:5px solid transparent;
 }
 .service-photo img{width:100%;height:100%;object-fit:cover;display:block}
-.service-card.has-photo::before{display:none}
 .service-card.has-photo .service-icon{display:none}
 .service-card::before{
-  content:"";position:absolute;top:0;left:0;right:0;height:5px;
-  background:linear-gradient(90deg,var(--teal),var(--yellow));
+  content:"";position:absolute;top:0;left:0;right:0;height:6px;
+  background:var(--turquoise);
+  z-index:2;
 }
+/* Color-coded service cards — matches business card branding */
+.service-card:nth-child(1)::before{background:var(--turquoise)}    /* Babysitting */
+.service-card:nth-child(2)::before{background:var(--pink)}          /* Face Painting */
+.service-card:nth-child(3)::before{background:var(--yellow)}        /* Party Assist */
 .service-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg)}
 .service-icon{
   width:64px;height:64px;border-radius:18px;
-  background:var(--sky);display:grid;place-items:center;
+  background:var(--turquoise-soft);display:grid;place-items:center;
   font-size:2rem;margin-bottom:20px;
 }
-.service-card:nth-child(2) .service-icon{background:var(--yellow-soft)}
-.service-card:nth-child(3) .service-icon{background:var(--teal-soft)}
+.service-card:nth-child(2) .service-icon{background:var(--pink-soft)}
+.service-card:nth-child(3) .service-icon{background:var(--yellow-soft)}
+/* Color-coded prices per service */
+.service-card:nth-child(1) .service-price{color:var(--turquoise-dark)}
+.service-card:nth-child(2) .service-price{color:var(--pink-dark)}
+.service-card:nth-child(3) .service-price{color:var(--yellow-dark)}
 .service-card h3{margin-bottom:10px}
 .service-card p{color:var(--ink-soft);font-size:.97rem;margin-bottom:18px;flex:1}
 .service-price{
@@ -525,8 +540,7 @@ section{padding:90px 0}
   .cta-banner{padding:36px 0}
   .form-card{padding:18px 14px}
   .section-head{margin-bottom:28px}
-  .brand span{display:none}  /* Just the logo on very narrow phones */
-  .brand-logo{width:44px;height:44px;border-radius:10px}
+  .brand-logo{height:44px;width:auto;border-radius:0}
   .nav-inner{height:68px}
   .nav-links{top:68px}
   .nav .btn{padding:8px 14px;font-size:.82rem}
@@ -691,6 +705,257 @@ footer{
 }
 .cta-banner h2{color:#fff;margin-bottom:14px;font-size:clamp(2.2rem,4.5vw,3.4rem)}
 .cta-banner p{color:#D4E7EB;font-size:1.05rem;margin-bottom:26px}
+
+/* ==========================================================
+   Template-style (v2) sections — matched to brand card design
+   ========================================================== */
+
+/* ---------- Pink button variant ---------- */
+.btn-pink{
+  background:var(--pink);color:#fff;box-shadow:0 6px 18px rgba(236,92,159,.35);
+  padding:16px 30px;font-size:1.02rem;border-radius:999px;
+}
+.btn-pink:hover{background:var(--pink-dark);transform:translateY(-2px);text-decoration:none;box-shadow:0 10px 24px rgba(209,58,128,.4)}
+.btn-pink .btn-icon{font-size:1.1rem;margin-right:4px}
+
+/* ---------- Hero v2 (template style) ---------- */
+.hero-v2{
+  padding:60px 0 50px;
+  background:linear-gradient(180deg,#fff 0%,var(--pink-soft) 100%);
+  position:relative;overflow:hidden;
+}
+.hero-v2-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center;
+}
+.hero-v2-text{position:relative;z-index:2}
+.hero-v2-text h1{
+  font-size:clamp(2.6rem,5.5vw,4.6rem);
+  line-height:1.05;color:var(--ink);
+  margin-bottom:22px;max-width:580px;
+}
+.hero-v2-text h1 .accent-pink{color:var(--pink);font-weight:700}
+.hero-v2-text p.lead{
+  font-size:1.15rem;color:var(--ink-soft);
+  margin-bottom:30px;max-width:460px;
+}
+.hero-v2-image{
+  position:relative;border-radius:var(--radius-lg);
+  overflow:visible;
+}
+.hero-v2-image img{
+  width:100%;max-height:560px;object-fit:cover;object-position:center 25%;
+  border-radius:var(--radius-lg);
+  box-shadow:0 20px 60px rgba(25,74,88,.18);
+  display:block;
+}
+/* Sparkle decorations */
+.sparkle{
+  position:absolute;display:inline-block;
+  width:40px;height:40px;pointer-events:none;
+  background-repeat:no-repeat;background-position:center;background-size:contain;
+}
+.sparkle-yellow{
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'><g stroke='%23F5CA3C' stroke-width='3.5' stroke-linecap='round'><line x1='20' y1='4' x2='20' y2='14'/><line x1='20' y1='26' x2='20' y2='36'/><line x1='4' y1='20' x2='14' y2='20'/><line x1='26' y1='20' x2='36' y2='20'/><line x1='8' y1='8' x2='14' y2='14'/><line x1='26' y1='26' x2='32' y2='32'/><line x1='32' y1='8' x2='26' y2='14'/><line x1='14' y1='26' x2='8' y2='32'/></g></svg>");
+}
+.sparkle-tl{top:-10px;left:-18px}
+.sparkle-bl{bottom:-10px;left:28%}
+.sparkle-right{top:30px;right:-18px}
+.sparkle-top{top:-24px;left:50%;transform:translateX(-50%)}
+
+@media (max-width:880px){
+  .hero-v2-grid{grid-template-columns:1fr;gap:32px}
+  .hero-v2-image img{max-height:420px}
+  .hero-v2{padding:36px 0 40px}
+}
+
+/* ---------- Values row ---------- */
+.values{
+  background:#fff;padding:48px 0;
+  border-bottom:1px solid var(--line);
+}
+.values-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:24px;
+  align-items:start;
+}
+.value-item{
+  display:flex;flex-direction:column;align-items:center;gap:12px;
+  text-align:center;
+}
+.value-icon{
+  width:60px;height:60px;border-radius:14px;
+  display:grid;place-items:center;font-size:1.8rem;line-height:1;
+  background:var(--cream-deep);
+}
+.value-icon-teal{background:var(--turquoise-soft);color:var(--teal-dark)}
+.value-icon-pink{background:var(--pink-soft);color:var(--pink-dark)}
+.value-icon-dark{background:var(--teal-soft);color:var(--teal-dark)}
+.value-label{
+  font-family:'Montserrat',sans-serif;font-weight:600;font-size:.92rem;
+  color:var(--ink);line-height:1.3;
+}
+@media (max-width:880px){
+  .values-grid{grid-template-columns:repeat(2,1fr);gap:28px}
+  .values{padding:36px 0}
+}
+
+/* ---------- Services v2 (colored cards) ---------- */
+.services-v2{padding:64px 0;background:#fff}
+.services-v2-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:24px;
+}
+.service-v2-card{
+  display:flex;align-items:flex-end;justify-content:space-between;
+  padding:28px 28px 26px;border-radius:24px;
+  color:var(--ink);text-decoration:none;
+  min-height:220px;
+  position:relative;overflow:hidden;
+  transition:transform .25s ease, box-shadow .25s ease;
+}
+.service-v2-card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 18px 40px rgba(25,74,88,.12);
+  text-decoration:none;
+}
+.service-v2-inner{display:flex;flex-direction:column;gap:14px;max-width:85%}
+.service-v2-icon{
+  width:60px;height:60px;border-radius:50%;
+  background:#fff;display:grid;place-items:center;font-size:1.7rem;
+  box-shadow:var(--shadow-sm);
+}
+.service-v2-card h3{
+  font-family:'Caveat',cursive;font-size:2rem;font-weight:700;line-height:1;
+  margin:0;letter-spacing:-.01em;
+}
+.service-v2-card p{
+  color:var(--ink);font-size:.95rem;line-height:1.5;margin:0;
+}
+.service-v2-arrow{
+  position:absolute;right:22px;bottom:22px;
+  width:44px;height:44px;border-radius:50%;
+  background:#fff;color:var(--ink);display:grid;place-items:center;
+  font-size:1.3rem;font-weight:700;
+  box-shadow:var(--shadow-sm);
+  transition:transform .2s ease, background .2s ease;
+}
+.service-v2-card:hover .service-v2-arrow{transform:translateX(4px) scale(1.05)}
+.service-v2-pink{background:var(--pink-soft)}
+.service-v2-pink h3{color:var(--pink-dark)}
+.service-v2-pink .service-v2-arrow{background:var(--pink);color:#fff}
+.service-v2-yellow{background:var(--yellow-soft)}
+.service-v2-yellow h3{color:var(--yellow-dark)}
+.service-v2-yellow .service-v2-arrow{background:var(--yellow);color:var(--ink)}
+.service-v2-teal{background:var(--turquoise-soft)}
+.service-v2-teal h3{color:var(--teal-dark)}
+.service-v2-teal .service-v2-arrow{background:var(--turquoise);color:#fff}
+@media (max-width:880px){
+  .services-v2-grid{grid-template-columns:1fr;gap:16px}
+}
+
+/* ---------- Why Choose Little Moments (polaroid + checklist) ---------- */
+.why-choose{
+  background:#fff;padding:80px 0;
+  position:relative;
+}
+.why-choose-grid{
+  display:grid;grid-template-columns:1fr 1.1fr;gap:70px;align-items:center;
+}
+.polaroid-stack{
+  position:relative;height:420px;
+  display:flex;align-items:center;justify-content:center;
+}
+.polaroid{
+  position:absolute;width:260px;background:#fff;padding:14px 14px 40px;
+  box-shadow:0 10px 30px rgba(25,74,88,.18);
+  border-radius:3px;
+}
+.polaroid img{
+  width:100%;aspect-ratio:1/1;object-fit:cover;display:block;
+  border-radius:1px;
+}
+.polaroid-1{transform:rotate(-7deg) translate(-70px,-20px);z-index:1}
+.polaroid-2{transform:rotate(6deg) translate(60px,20px);z-index:2}
+.polaroid::after{
+  content:"";position:absolute;bottom:14px;left:50%;transform:translateX(-50%);
+  width:40%;height:18px;background:#fff;
+}
+.heart{
+  position:absolute;font-size:2.6rem;color:var(--pink);
+  font-weight:400;pointer-events:none;z-index:3;
+  text-shadow:0 2px 6px rgba(236,92,159,.2);
+}
+.heart-tl{top:-10px;left:0}
+.heart-br{bottom:10px;right:10px}
+.why-choose h2{
+  font-size:clamp(2.2rem,4vw,3.4rem);line-height:1.1;margin-bottom:24px;
+}
+.why-choose h2 .accent-teal{color:var(--teal);position:relative;display:inline-block}
+.why-choose h2 .accent-teal::after{
+  content:"";position:absolute;left:0;right:0;bottom:-6px;height:5px;
+  background:var(--turquoise);border-radius:4px;opacity:.6;
+}
+.check-list{
+  list-style:none;display:flex;flex-direction:column;gap:14px;margin-top:10px;
+}
+.check-list li{
+  display:flex;gap:12px;align-items:flex-start;
+  font-size:1.05rem;color:var(--ink);
+}
+.check-list li::before{
+  content:"✓";color:var(--pink);font-weight:700;flex-shrink:0;
+  font-size:1.1rem;margin-top:1px;
+}
+@media (max-width:880px){
+  .why-choose-grid{grid-template-columns:1fr;gap:60px}
+  .why-choose{padding:56px 0}
+  .polaroid-stack{height:340px}
+  .polaroid{width:200px}
+}
+
+/* ---------- Ready CTA (template pink banner) ---------- */
+.ready-cta{
+  background:linear-gradient(180deg,var(--turquoise-soft) 0%,#fff 100%);
+  padding:56px 0;
+}
+.ready-cta-inner{
+  display:flex;align-items:center;justify-content:space-between;gap:28px;
+  background:#fff;border-radius:var(--radius-lg);
+  padding:32px 40px;box-shadow:0 10px 30px rgba(25,74,88,.1);
+  flex-wrap:wrap;
+}
+.ready-cta-icon{
+  width:64px;height:64px;border-radius:16px;
+  background:var(--turquoise-soft);color:var(--teal-dark);
+  display:grid;place-items:center;font-size:2rem;flex-shrink:0;
+}
+.ready-cta-text{flex:1;min-width:260px}
+.ready-cta-text h2{
+  font-size:clamp(1.8rem,3vw,2.6rem);margin:0 0 6px;
+}
+.ready-cta-text p{
+  color:var(--ink-soft);font-size:1rem;margin:0;
+}
+.ready-cta-btn{flex-shrink:0}
+@media (max-width:700px){
+  .ready-cta-inner{flex-direction:column;align-items:flex-start;padding:28px}
+  .ready-cta-btn{align-self:center}
+}
+
+/* ---------- Video wrapper ---------- */
+.video-wrap{
+  max-width:860px;margin:36px auto 0;
+  text-align:center;
+}
+.video-wrap video{
+  width:100%;height:auto;display:block;
+  border-radius:var(--radius-lg);
+  box-shadow:var(--shadow-lg);
+  background:var(--ink);
+}
+.video-caption{
+  font-family:'Caveat',cursive;
+  font-size:1.4rem;color:var(--teal-dark);
+  margin-top:14px;font-weight:600;
+}
 
 /* ---------- Photo gallery (face painting page) ---------- */
 .gallery{background:var(--cream-deep)}
